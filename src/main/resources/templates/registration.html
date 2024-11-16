@@ -10,11 +10,11 @@
         <form action="/registration" method="POST">
             <div class="form-group">
                 <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" th:field="*{name}" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" th:field="*{email}" required>
             </div>
             <div class="form-group">
                 <label for="faculty">Faculty</label>
@@ -25,9 +25,26 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="submit">
+                <input type="submit" value="Register">
             </div>
         </form>
+
+        <h1>Student List</h1>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Faculty</th>
+            </tr>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.email}"></td>
+                <td th:text="${student.faculty"></td>
+            </tr>
+        </table>
+
+
     </div>
 </body>
 </html>
