@@ -21,8 +21,16 @@ public class CrudService {
 
     @PostConstruct
     private void initData(){
-        students.add(Student.builder().build());
+        students.add(Student.builder().id(1).name("Vivin").email("vivin@yahoo.co.id").faculty(faculties.get(0)).build());
+        students.add(Student.builder().id(1).name("Nonong").email("nonong@gmail.com").faculty(faculties.get(2)).build());
     }
 
+    public void add(Student student){
+        students.add(student);
+    }
+
+    public List<Student> getData(){
+        return students;
+    }
 
 }

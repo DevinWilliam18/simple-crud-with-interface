@@ -1,5 +1,6 @@
 package com.project.crud;
 
+import com.project.crud.service.CrudService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +14,8 @@ public class CrudApplication {
 	}
 
 	@Bean
-	public ApplicationRunner
+	public CrudService crudService(){
+		return new CrudService();
+    }
 
 }
