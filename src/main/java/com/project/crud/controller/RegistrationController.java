@@ -5,6 +5,8 @@ import com.project.crud.model.Student;
 import com.project.crud.service.FacultyService;
 import com.project.crud.service.StudentService;
 import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import java.util.Random;
 
 @Builder
 @Controller
+@Slf4j
 public class RegistrationController {
 
     @Autowired
@@ -32,9 +35,10 @@ public class RegistrationController {
                 "Faculty of Medicine", "Faculty of Engineering",
                 "Faculty of Mathematics and Computer Science","Faculty of Psychology"
         );
+        log.info("masuk");
 
         List<Student> students = studentService.findAll();
-
+        log.info("students: {}", students);
         model.addAttribute("name", new String());
         model.addAttribute("email", new String());
         model.addAttribute("faculty", new String());
