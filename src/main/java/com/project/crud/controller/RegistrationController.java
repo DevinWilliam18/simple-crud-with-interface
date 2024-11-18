@@ -11,12 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import javax.annotation.PostConstruct;
 
 @Builder
 @Controller
@@ -29,19 +32,26 @@ public class RegistrationController {
     @Autowired
     private final FacultyService facultyService;
 
+    private List<String> faculties = new ArrayList<>();
+    
+    @PostConstruct
+    public void initData(){
+        faculties.add("Faculty of Medicine");
+        faculties.add("Faculty of Engineering");
+        faculties.add("Faculty of Mathematics and Computer Science");
+        faculties.add("Faculty of Psychology");
+    }
+
     @GetMapping("/register")
     public String registration(Model model) {
-        List<String> faculties = Arrays.asList(
-                "Faculty of Medicine", "Faculty of Engineering",
-                "Faculty of Mathematics and Computer Science","Faculty of Psychology"
-        );
-        log.info("masuk");
 
         List<Student> students = studentService.findAll();
-        log.info("students: {}", students);
-        model.addAttribute("name", new String());
-        model.addAttribute("email", new String());
-        model.addAttribute("faculty", new String());
+        log.info("masuk");
+        log.info("faculties: {}", faculties.size());
+
+        for (int i = 0; i < faculties.size(); i++) {
+            log.info("name: {}", faculties.get(i));
+        }
 
         model.addAttribute("allFaculties", faculties);
 
@@ -51,19 +61,20 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String listData (@ModelAttribute String name, @ModelAttribute String email, @ModelAttribute String faculty, Model model){
-
+    public String listData (@RequestParam String name, @RequestParam String email, @RequestParam String faculty, Model model){
         Faculty getSelectedFaculty = facultyService.findFaculty(faculty);
 
-        Student student = Student.builder().id(new Random().nextInt(1000)).name(name).email(email).faculty(getSelectedFaculty).build();
-
+        Student student = Student.builder().id(new Random().nextInt(1000)).name(name).email(email).faculty(getSelectedFaculty).build();       
         studentService.add(student);
 
         List<Student> students = studentService.findAll();
 
+
         model.addAttribute("students", students);
+        model.addAttribute("allFaculties", faculties);
 
         return "registration";
+        
     }
 
 }

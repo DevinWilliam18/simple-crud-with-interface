@@ -4,6 +4,9 @@ import com.project.crud.model.Faculty;
 import com.project.crud.model.Student;
 
 import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,17 +14,14 @@ import java.util.List;
 public class StudentService {
 
     List<Student> students = new ArrayList<>();
-    List<Faculty> faculties = new ArrayList<>(Arrays.asList(
-            Faculty.builder().id(1).name("Faculty of Medicine").build(),
-            Faculty.builder().id(2).name("Faculty of Engineering").build(),
-            Faculty.builder().id(3).name("Faculty of Mathematics and Computer Science").build(),
-            Faculty.builder().id(3).name("Faculty of Psychology").build()
-    ));
+
+    @Autowired
+    private FacultyService facultyService;
 
     @PostConstruct
     private void initData(){
-        students.add(Student.builder().id(1).name("Vivin").email("vivin@yahoo.co.id").faculty(faculties.get(0)).build());
-        students.add(Student.builder().id(2).name("Nonong").email("nonong@gmail.com").faculty(faculties.get(2)).build());
+        students.add(Student.builder().id(1).name("Vivin").email("vivin@yahoo.co.id").faculty(facultyService.findFaculty("Faculty of Medicine")).build());
+        students.add(Student.builder().id(2).name("Nonong").email("nonong@gmail.com").faculty(facultyService.findFaculty("Faculty of Medicine")).build());
     }
 
     public void add(Student student){

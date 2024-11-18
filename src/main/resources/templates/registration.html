@@ -10,15 +10,15 @@
         <form action="/register" method="POST">
             <div class="form-group">
                 <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" th:field="*{name}" required>
+                <input type="text" id="name" name="name" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" th:field="*{email}" required>
+                <input type="email" id="email" name="email" required>
             </div>
             <div class="form-group">
                 <label for="faculty">Faculty</label>
-                <select name="faculty" id="faculty" th:field="*{faculty}">
+                <select name="faculty" id="faculty">
                     <option th:each="faculty: ${allFaculties}"
                             th:value="${faculty}"
                             th:text="${faculty}">Faculty</option>
@@ -43,8 +43,6 @@
                 <td th:text="${student.getFaculty().getName()}"></td>
             </tr>
         </table>
-
-
     </div>
 </body>
 </html>
