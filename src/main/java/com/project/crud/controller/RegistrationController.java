@@ -46,12 +46,6 @@ public class RegistrationController {
     public String registration(Model model) {
 
         List<Student> students = studentService.findAll();
-        log.info("masuk");
-        log.info("faculties: {}", faculties.size());
-
-        for (int i = 0; i < faculties.size(); i++) {
-            log.info("name: {}", faculties.get(i));
-        }
 
         model.addAttribute("allFaculties", faculties);
 
