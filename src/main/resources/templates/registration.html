@@ -3,6 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }        
+    </style>
 </head>
 <body>
     <div class="container">
@@ -33,16 +50,51 @@
 
         <table>
             <tr>
+                <th>No</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Faculty</th>
+                <th></th>
             </tr>
-            <tr th:each="student : ${students}">
+            <tr th:each="student,rowStat : *{students}">
+                <td th:text="${rowStat.count}"></td>
                 <td th:text="${student.getName()}"></td>
                 <td th:text="${student.getEmail()}"></td>
                 <td th:text="${student.getFaculty().getName()}"></td>
+                <td><input type="button" value="Edit"></td>
             </tr>
         </table>
     </div>
+    <!-- modal    -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <form action="" method="PUT">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="editName" name="editName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="editEmail" name="editEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="faculty">Faculty</label>
+                    <select name="editFaculty" id="editFaculty">
+                        <option th:each="faculty: ${allFaculties}"
+                                th:value="${faculty}"
+                                th:text="${faculty}">Faculty</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Register">
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
+<script>
+    $("#").on("click", function(event) {
+        
+    })
+</script>
 </html>

@@ -20,6 +20,10 @@ import java.util.List;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @Builder
 @Controller
@@ -43,7 +47,7 @@ public class RegistrationController {
     }
 
     @GetMapping("/register")
-    public String registration(Model model) {
+    public String viewRegistration(Model model) {
 
         List<Student> students = studentService.findAll();
 
@@ -55,7 +59,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String listData (@RequestParam String name, @RequestParam String email, @RequestParam String faculty, Model model){
+    public String postData(@RequestParam String name, @RequestParam String email, @RequestParam String faculty, Model model){
         Faculty getSelectedFaculty = facultyService.findFaculty(faculty);
 
         Student student = Student.builder().id(new Random().nextInt(1000)).name(name).email(email).faculty(getSelectedFaculty).build();       
@@ -69,6 +73,13 @@ public class RegistrationController {
 
         return "registration";
         
+    }
+
+    @PutMapping("path/{id}")
+    public String updateData(@PathVariable String id, @RequestBody SomeEnityData entity) {
+        //TODO: process PUT request
+        
+        return entity;
     }
 
 }
