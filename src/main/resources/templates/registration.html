@@ -93,8 +93,19 @@
     </div>
 </body>
 <script>
-    $("#").on("click", function(event) {
-        
+    $(document).ready(function () {
+        $('.modal').hide();
+
+        $('.modal input[type=button]').click(function (event) {
+            $('.modal').show();
+        })
+
+        $('body').click(function (event) {
+                if (!$(event.target).closest('#modal').length && !$(event.target).is('#modal')) {
+                    $(".modal").hide();
+                }
+        });
+
     })
 </script>
 </html>
