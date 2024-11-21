@@ -18,7 +18,34 @@
 
         tr:nth-child(even) {
             background-color: #dddddd;
-        }        
+        }
+
+        /* Modal overlay styling */
+        .modal-overlay {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            z-index: 9999;
+        }
+
+        /* Modal box styling */
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            z-index: 10000;
+        }
+
     </style>
 </head>
 <body>
@@ -65,46 +92,60 @@
             </tr>
         </table>
     </div>
+
     <!-- modal    -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <form action="" method="PUT">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="editName" name="editName" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="editEmail" name="editEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="faculty">Faculty</label>
-                    <select name="editFaculty" id="editFaculty">
-                        <option th:each="faculty: ${allFaculties}"
-                                th:value="${faculty}"
-                                th:text="${faculty}">Faculty</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Register">
-                </div>
-            </form>
+    <div class="modal-overlay" id="modal-overlay">
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <form action="" method="PUT">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="editName" name="editName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="editEmail" name="editEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="faculty">Faculty</label>
+                        <select name="editFaculty" id="editFaculty">
+                            <option th:each="faculty: ${allFaculties}"
+                                    th:value="${faculty}"
+                                    th:text="${faculty}">Faculty</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Update">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+
 </body>
+<!--jquery via cdn-->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('.modal').hide();
+        $('.modal-overlay').hide();
 
-        $('.modal input[type=button]').click(function (event) {
-            $('.modal').show();
-        })
+        $('.container input[type=button]').click(function (event) {
+            console.log("devin");
+            $('.modal-overlay').show();
+        });
 
         $('body').click(function (event) {
-                if (!$(event.target).closest('#modal').length && !$(event.target).is('#modal')) {
-                    $(".modal").hide();
+            if($('.modal-overlay').is(':visible')){
+                console.log('yes, it is visible');
+                if (!$(event.target).is('.container input[type=button]') && !$(event.target).closest('.modal').length) {
+                    console.log('outside');
+                    $(".modal-overlay").hide();
                 }
+            }
+
         });
+
+
 
     })
 </script>

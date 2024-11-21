@@ -75,11 +75,15 @@ public class RegistrationController {
         
     }
 
-    @PutMapping("path/{id}")
-    public String updateData(@PathVariable String id, @RequestBody SomeEnityData entity) {
-        //TODO: process PUT request
+    @PutMapping("/path/{id}")
+    public boolean updateData(@PathVariable String id, @RequestParam String email, @RequestParam String name, @RequestParam String faculty) {
+        boolean response = false;
+        Faculty getFaculty = facultyService.findFaculty(faculty);
+        if (studentService.editStudent(id, email, name, getFaculty)){
+
+        }
         
-        return entity;
+        return response;
     }
 
 }
