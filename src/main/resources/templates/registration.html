@@ -130,15 +130,20 @@
         $('.modal-overlay').hide();
 
         $('.container input[type=button]').click(function (event) {
-            console.log("devin");
+            let nameUpdated = $('').val();
+            let emailUpdated = $('').val();
+            let facultyUpdated = $('').val();
+            $('.modal-overlay').show();
+        });
+
+        $('.modal input[type=button]').click(function (event) {
+
             $('.modal-overlay').show();
         });
 
         $('body').click(function (event) {
             if($('.modal-overlay').is(':visible')){
-                console.log('yes, it is visible');
                 if (!$(event.target).is('.container input[type=button]') && !$(event.target).closest('.modal').length) {
-                    console.log('outside');
                     $(".modal-overlay").hide();
                 }
             }
