@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 @Builder
 @Controller
 @Slf4j
@@ -37,9 +36,9 @@ public class RegistrationController {
     private final FacultyService facultyService;
 
     private List<String> faculties = new ArrayList<>();
-    
+
     @PostConstruct
-    public void initData(){
+    public void initData() {
         faculties.add("Faculty of Medicine");
         faculties.add("Faculty of Engineering");
         faculties.add("Faculty of Mathematics and Computer Science");
@@ -59,30 +58,32 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String postData(@RequestParam String name, @RequestParam String email, @RequestParam String faculty, Model model){
+    public String postData(@RequestParam String name, @RequestParam String email, @RequestParam String faculty,
+            Model model) {
         Faculty getSelectedFaculty = facultyService.findFaculty(faculty);
 
-        Student student = Student.builder().id(new Random().nextInt(1000)).name(name).email(email).faculty(getSelectedFaculty).build();       
+        Student student = Student.builder().id(new Random().nextInt(1000)).name(name).email(email)
+                .faculty(getSelectedFaculty).build();
         studentService.add(student);
 
         List<Student> students = studentService.findAll();
-
 
         model.addAttribute("students", students);
         model.addAttribute("allFaculties", faculties);
 
         return "registration";
-        
+
     }
 
-    @PutMapping("/path/{id}")
-    public boolean updateData(@PathVariable String id, @RequestParam String email, @RequestParam String name, @RequestParam String faculty) {
+    @PostMapping("/register/{id}")
+    public boolean updateData(@PathVariable String id, @RequestParam String email, @RequestParam String name,
+            @RequestParam String faculty) {
         boolean response = false;
         Faculty getFaculty = facultyService.findFaculty(faculty);
-        if (studentService.editStudent(id, email, name, getFaculty)){
-
+        if (studentService.editStudent(id, email, name, getFaculty)) {
+            response = true;
         }
-        
+
         return response;
     }
 
