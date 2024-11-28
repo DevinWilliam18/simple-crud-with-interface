@@ -78,13 +78,14 @@
         <table>
             <tr>
                 <th>No</th>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Faculty</th>
-                <th></th>
             </tr>
             <tr th:each="student,rowStat : *{students}">
                 <td th:text="${rowStat.count}"></td>
+                <td th:text="${student.getId()}"></td>
                 <td th:text="${student.getName()}"></td>
                 <td th:text="${student.getEmail()}"></td>
                 <td th:text="${student.getFaculty().getName()}"></td>
@@ -97,7 +98,7 @@
     <div class="modal-overlay" id="modal-overlay">
         <div id="modal" class="modal">
             <div class="modal-content">
-                <form action="#" th:action="@{|/register/${register.id}|}" method="post">
+                <form id="formUpdated" action="#" method="post">
                     <div class="form-group">
                         <label for="name">Full Name</label>
                         <input type="text" id="editName" name="editName" required>
@@ -131,9 +132,10 @@
 
         $('.container input[type=button]').click(function (event) {
             $('.modal-overlay').show();
-            let nameUpdated = $(this).closest("tr").find("td:eq(1)").text();
-            let emailUpdated = $(this).closest("tr").find("td:eq(2)").text();
-            let facultyUpdated = $(this).closest("tr").find("td:eq(3)").text();
+            let idUpdated = $(this).closest("tr").find("td:eq(1)").text();
+            let nameUpdated = $(this).closest("tr").find("td:eq(2)").text();
+            let emailUpdated = $(this).closest("tr").find("td:eq(3)").text();
+            let facultyUpdated = $(this).closest("tr").find("td:eq(4)").text();
 
             let defaultVal = ''.concat('select option:contains(\'', facultyUpdated, '\')');
 
@@ -141,12 +143,22 @@
             $('.modal-overlay input[id="editName"]').prop("value", nameUpdated);
             $('.modal-overlay input[id="editEmail"]').prop("value", emailUpdated);
 
+            $('#formUpdated').submit(function (event) {
+                event.preventDefault();
+                console.log("enter this");
+
+                let newAction = "/register/" + idUpdated.toString();
+
+                $(this).attr('action', newAction);
+                
+
+                $(this).off('submit').submit();
+                
+            });
+
         });
 
-        $('.modal-overlay input[type=button]').click(function (event) {
 
-            $('.modal-overlay').show();
-        });
 
         $('body').click(function (event) {
             if($('.modal-overlay').is(':visible')){

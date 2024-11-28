@@ -76,15 +76,16 @@ public class RegistrationController {
     }
 
     @PostMapping("/register/{id}")
-    public boolean updateData(@PathVariable String id, @RequestParam String email, @RequestParam String name,
-            @RequestParam String faculty) {
+    public String updateData(@PathVariable String id, @RequestParam String editEmail, @RequestParam String editName,
+            @RequestParam String editFaculty) {
         boolean response = false;
-        Faculty getFaculty = facultyService.findFaculty(faculty);
-        if (studentService.editStudent(id, email, name, getFaculty)) {
+        System.out.println("updateData: " + id);
+        Faculty getFaculty = facultyService.findFaculty(editFaculty);
+        if (studentService.editStudent(id, editEmail, editName, getFaculty)) {
             response = true;
         }
 
-        return response;
+        return "redirect:/register";
     }
 
 }
