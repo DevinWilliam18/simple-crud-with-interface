@@ -82,6 +82,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Faculty</th>
+                <th></th>
             </tr>
             <tr th:each="student,rowStat : *{students}">
                 <td th:text="${rowStat.count}"></td>
@@ -145,12 +146,10 @@
 
             $('#formUpdated').submit(function (event) {
                 event.preventDefault();
-                console.log("enter this");
-
-                let newAction = "/register/" + idUpdated.toString();
-
-                $(this).attr('action', newAction);
                 
+                let newAction = "/register/" + idUpdated.toString();
+                
+                $(this).attr('action', newAction);
 
                 $(this).off('submit').submit();
                 

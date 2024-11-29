@@ -60,6 +60,7 @@ public class RegistrationController {
     @PostMapping("/register")
     public String postData(@RequestParam String name, @RequestParam String email, @RequestParam String faculty,
             Model model) {
+        log.info("post");
         Faculty getSelectedFaculty = facultyService.findFaculty(faculty);
 
         Student student = Student.builder().id(new Random().nextInt(1000)).name(name).email(email)
@@ -82,6 +83,7 @@ public class RegistrationController {
         System.out.println("updateData: " + id);
         Faculty getFaculty = facultyService.findFaculty(editFaculty);
         if (studentService.editStudent(id, editEmail, editName, getFaculty)) {
+            log.info("student has been inserted");
             response = true;
         }
 
