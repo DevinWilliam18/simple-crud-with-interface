@@ -90,7 +90,10 @@
                 <td th:text="${student.getName()}"></td>
                 <td th:text="${student.getEmail()}"></td>
                 <td th:text="${student.getFaculty().getName()}"></td>
-                <td><input type="button" value="Edit"></td>
+                <td>
+                    <input type="button" id="edit" value="Edit">
+                    <input type="button" id="delete" value="Delete">
+                </td>
             </tr>
         </table>
     </div>
@@ -131,7 +134,7 @@
     $(document).ready(function () {
         $('.modal-overlay').hide();
 
-        $('.container input[type=button]').click(function (event) {
+        $('.container input[type=button]#edit').click(function (event) {
             $('.modal-overlay').show();
             let idUpdated = $(this).closest("tr").find("td:eq(1)").text();
             let nameUpdated = $(this).closest("tr").find("td:eq(2)").text();
@@ -155,6 +158,10 @@
                 
             });
 
+        });
+
+        $('.container input[type=button]#delete').click(function(events) {
+            let idDeleted = $(this).closest("tr").find("td:eq(1)").text();
         });
 
 

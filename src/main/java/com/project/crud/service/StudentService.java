@@ -57,8 +57,6 @@ public class StudentService {
 
         for (int i = 0; i < findAll().size(); i++) {
             if (getAll.get(i).getId() == Integer.parseInt(id)) {
-                log.info("index: {}", i);
-                log.info("{}-{}-{}", student.getId(), student.getName(), student.getFaculty().getName());
                 index = i;
                 break;
             }
