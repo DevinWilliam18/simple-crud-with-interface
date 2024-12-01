@@ -50,7 +50,7 @@ public class StudentService {
     }
 
     public int findIndex(String id) {
-        int index = 0;
+        int index = -1;
         Student student = findStudent(id);
 
         List<Student> getAll = findAll();
@@ -81,6 +81,16 @@ public class StudentService {
         }
 
         return resp;
+    }
+
+    public boolean deleteStudent(String id){
+        int index = findIndex(id);
+        if (index == -1){
+            return false;
+        }else{
+            findAll().remove(index);
+            return true;
+        }
     }
 
 }

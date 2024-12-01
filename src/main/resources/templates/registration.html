@@ -162,6 +162,17 @@
 
         $('.container input[type=button]#delete').click(function(events) {
             let idDeleted = $(this).closest("tr").find("td:eq(1)").text();
+            $.ajax({
+                url: "/student/"+ idDeleted,
+                type: 'DELETE',
+                success: function(result){
+                    console.log("deleted id: ", idDeleted);
+                    $(this).closest("tr").remove();
+                },
+<!--                error: function(){-->
+<!--                }-->
+
+            });
         });
 
 
