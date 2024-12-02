@@ -131,6 +131,13 @@
 <!--jquery via cdn-->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
+
+    function reloadTableNumbering() {
+        $('table tr:eq(0)').nextAll().each(function(index) {
+            $(this).find('td:eq(0)').replaceWith('<td>' + (index + 1) + '</td>');
+        })    
+    }
+
     $(document).ready(function () {
         $('.modal-overlay').hide();
 
@@ -162,15 +169,22 @@
 
         $('.container input[type=button]#delete').click(function(events) {
             let idDeleted = $(this).closest("tr").find("td:eq(1)").text();
+            
+            //get the curr row
+            let context = $(this).closest("tr");
+            let tableContext = context.each(function (index) {
+                $(this).find()
+            })
             $.ajax({
                 url: "/student/"+ idDeleted,
                 type: 'DELETE',
                 success: function(result){
-                    console.log("deleted id: ", idDeleted);
-                    $(this).closest("tr").remove();
+                    context.remove();
+                    reloadTableNumbering();
                 },
-<!--                error: function(){-->
-<!--                }-->
+                error: function(result){
+                    console.log("errors: ", result)
+                }   
 
             });
         });

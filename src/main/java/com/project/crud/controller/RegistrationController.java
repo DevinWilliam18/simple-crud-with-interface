@@ -88,8 +88,7 @@ public class RegistrationController {
     }
 
     @DeleteMapping("/student/{id}")
-    public ResponseEntity<String> delete(@PathVariable String id){
-        log.info("masuk");
+    public ResponseEntity<String> delete(@PathVariable String id) {
         boolean resp = studentService.deleteStudent(id);
         return resp == true ? new ResponseEntity<>(id, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
