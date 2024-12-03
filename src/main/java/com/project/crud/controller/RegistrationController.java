@@ -43,9 +43,11 @@ public class RegistrationController {
     }
 
     @GetMapping("/register")
-    public String viewRegistration(Model model) {
+    public String viewRegistration(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
 
-        List<Student> students = studentService.findAll();
+        List<Student> students = new ArrayList<>();
+
+        students = studentService.findPaginated(page, size).getContent();
 
         model.addAttribute("allFaculties", faculties);
 
@@ -92,5 +94,7 @@ public class RegistrationController {
         boolean resp = studentService.deleteStudent(id);
         return resp == true ? new ResponseEntity<>(id, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+
 
 }

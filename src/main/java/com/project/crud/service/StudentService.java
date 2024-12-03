@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,6 +36,10 @@ public class StudentService {
 
     public List<Student> findAll() {
         return students;
+    }
+
+    public Page<Student> findPaginated(int page, int size){
+        return null;
     }
 
     public Student findStudent(String id) {
