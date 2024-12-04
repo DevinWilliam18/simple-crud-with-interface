@@ -9,6 +9,9 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +42,16 @@ public class StudentService {
     }
 
     public Page<Student> findPaginated(int page, int size){
-        return null;
+//        convert list into Page
+        Pageable pageReq = PageRequest.of(page, size);
+
+        int start = (int) pageReq.getOffset();
+        int end = Math.min((start + pageReq.getPageSize()), findAll().size());
+
+        List<Student> contents = findAll().subList(start, end);
+
+        return new PageImpl<>(contents, pageReq, findAll().size());
+
     }
 
     public Student findStudent(String id) {
