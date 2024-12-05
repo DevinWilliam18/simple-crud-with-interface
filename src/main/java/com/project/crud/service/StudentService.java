@@ -31,6 +31,12 @@ public class StudentService {
                 .faculty(facultyService.findFaculty("Faculty of Medicine")).build());
         students.add(Student.builder().id(2).name("Nonong").email("nonong@gmail.com")
                 .faculty(facultyService.findFaculty("Faculty of Medicine")).build());
+        students.add(Student.builder().id(2).name("Rhenald Kalisa").email("rhenaldkalisa@gmail.com")
+                .faculty(facultyService.findFaculty("Faculty of Mathematics and Computer Science")).build());
+        students.add(Student.builder().id(2).name("Gby").email("gby99@gmail.com")
+                .faculty(facultyService.findFaculty("Faculty of Psychology")).build());
+        students.add(Student.builder().id(2).name("Dono Warkop").email("dono@gmail.com")
+                .faculty(facultyService.findFaculty("Faculty of Psychology")).build());
     }
 
     public void add(Student student) {
