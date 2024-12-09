@@ -45,14 +45,19 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String viewRegistration(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
-
+        page = page != 0 ? page - 1 : page;
         List<Student> students = new ArrayList<>();
         Page<Student> studentPagination = studentService.findPaginated(page, size);
         students = studentPagination.getContent();
 
-        model.addAttribute("allFaculties", faculties);
+        log.info("page: {}", page);
+        log.info("size: {}", size);
 
+        model.addAttribute("allFaculties", faculties);
+        model.addAttribute("pageNumbers", studentPagination.getTotalPages());
+        model.addAttribute("size", studentPagination.getNumberOfElements());
         model.addAttribute("students", students);
+
         return "registration";
 
     }
@@ -69,10 +74,10 @@ public class RegistrationController {
 
         List<Student> students = studentService.findAll();
 
-        model.addAttribute("students", students);
-        model.addAttribute("allFaculties", faculties);
+//        model.addAttribute("students", students);
+//        model.addAttribute("allFaculties", faculties);
 
-        return "registration";
+        return "redirect:/register";
 
     }
 

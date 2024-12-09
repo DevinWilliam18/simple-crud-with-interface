@@ -96,6 +96,9 @@
                 </td>
             </tr>
         </table>
+        <div th:each="i: ${#numbers.sequence(1, pageNumbers)}">
+            <a th:href="@{/register(page=${i})}" th:text="${i}" ></a>
+        </div>
     </div>
 
     <!-- modal    -->
@@ -131,77 +134,84 @@
 <!--jquery via cdn-->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
+        function paginationNumberedTableRows(event, size, page){
+            event
+        }
+        $(document).ready(function () {
+            $('.modal-overlay').hide();
 
-    function reloadTableNumbering() {
-        $('table tr:eq(0)').nextAll().each(function(index) {
-            $(this).find('td:eq(0)').replaceWith('<td>' + (index + 1) + '</td>');
-        })    
-    }
-
-    $(document).ready(function () {
-        $('.modal-overlay').hide();
-
-        $('.container input[type=button]#edit').click(function (event) {
-            $('.modal-overlay').show();
-            let idUpdated = $(this).closest("tr").find("td:eq(1)").text();
-            let nameUpdated = $(this).closest("tr").find("td:eq(2)").text();
-            let emailUpdated = $(this).closest("tr").find("td:eq(3)").text();
-            let facultyUpdated = $(this).closest("tr").find("td:eq(4)").text();
-
-            let defaultVal = ''.concat('select option:contains(\'', facultyUpdated, '\')');
-
-            $('.modal-overlay '.concat(defaultVal)).prop('selected',true);
-            $('.modal-overlay input[id="editName"]').prop("value", nameUpdated);
-            $('.modal-overlay input[id="editEmail"]').prop("value", emailUpdated);
-
-            $('#formUpdated').submit(function (event) {
-                event.preventDefault();
-                
-                let newAction = "/register/" + idUpdated.toString();
-                
-                $(this).attr('action', newAction);
-
-                $(this).off('submit').submit();
-                
-            });
-
-        });
-
-        $('.container input[type=button]#delete').click(function(events) {
-            let idDeleted = $(this).closest("tr").find("td:eq(1)").text();
-            
-            //get the curr row
-            let context = $(this).closest("tr");
-            let tableContext = context.each(function (index) {
-                $(this).find()
+            //function to display the numbered rows once the page launch
+            $('table tr:eq(0)').nextAll().each(function(index) {
+                $(this).find('td:eq(0)').replaceWith('<td>' + (index + 1) + '</td>');
             })
-            $.ajax({
-                url: "/student/"+ idDeleted,
-                type: 'DELETE',
-                success: function(result){
-                    context.remove();
-                    reloadTableNumbering();
-                },
-                error: function(result){
-                    console.log("errors: ", result)
-                }   
+
+
+            //function to display the numbered rows when moving to another page
+            $('table tr:eq(0)').click(function (event){
 
             });
-        });
+
+            $('.container input[type=button]#edit').click(function (event) {
+                $('.modal-overlay').show();
+                let idUpdated = $(this).closest("tr").find("td:eq(1)").text();
+                let nameUpdated = $(this).closest("tr").find("td:eq(2)").text();
+                let emailUpdated = $(this).closest("tr").find("td:eq(3)").text();
+                let facultyUpdated = $(this).closest("tr").find("td:eq(4)").text();
+
+                let defaultVal = ''.concat('select option:contains(\'', facultyUpdated, '\')');
+
+                $('.modal-overlay '.concat(defaultVal)).prop('selected',true);
+                $('.modal-overlay input[id="editName"]').prop("value", nameUpdated);
+                $('.modal-overlay input[id="editEmail"]').prop("value", emailUpdated);
+
+                $('#formUpdated').submit(function (event) {
+                    event.preventDefault();
+
+                    let newAction = "/register/" + idUpdated.toString();
+
+                    $(this).attr('action', newAction);
+
+                    $(this).off('submit').submit();
+
+                });
+
+            });
+
+            $('.container input[type=button]#delete').click(function(events) {
+                let idDeleted = $(this).closest("tr").find("td:eq(1)").text();
+
+                //get the curr row
+                let context = $(this).closest("tr");
+                let tableContext = context.each(function (index) {
+                    $(this).find()
+                })
+                $.ajax({
+                    url: "/student/"+ idDeleted,
+                    type: 'DELETE',
+                    success: function(result){
+                        context.remove();
+                        reloadTableNumbering();
+                    },
+                    error: function(result){
+                        console.log("errors: ", result)
+                    }
+
+                });
+            });
 
 
 
-        $('body').click(function (event) {
-            if($('.modal-overlay').is(':visible')){
-                if (!$(event.target).is('.container input[type=button]') && !$(event.target).closest('.modal').length) {
-                    $(".modal-overlay").hide();
+            $('body').click(function (event) {
+                if($('.modal-overlay').is(':visible')){
+                    if (!$(event.target).is('.container input[type=button]') && !$(event.target).closest('.modal').length) {
+                        $(".modal-overlay").hide();
+                    }
                 }
-            }
 
-        });
-
+            });
 
 
-    })
+
+        })
 </script>
 </html>
