@@ -15,10 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import javax.annotation.PostConstruct;
 
@@ -51,7 +48,16 @@ public class RegistrationController {
         students = studentPagination.getContent();
 
         log.info("page: {}", page);
-        log.info("size: {}", size);
+        log.info("size: {}", studentPagination.getNumberOfElements());
+
+//        page = 1
+
+        //indexing the data
+        for (int i = page + 1; i < (page + 1) * studentPagination.getNumberOfElements() + 1; i++) {
+
+        }
+//        Map<Integer, Student> indexedStudent =
+
 
         model.addAttribute("allFaculties", faculties);
         model.addAttribute("pageNumbers", studentPagination.getTotalPages());
