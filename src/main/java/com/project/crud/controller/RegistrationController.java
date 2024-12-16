@@ -42,22 +42,33 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String viewRegistration(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size) {
-        page = page != 0 ? page - 1 : page;
+
+        //indexing the data
+        //before
+        int before = 0;
+        if (page > 1){
+            before = page - 1;
+        }
+
+        int start = before + 1;
+
         List<Student> students = new ArrayList<>();
-        Page<Student> studentPagination = studentService.findPaginated(page, size);
+        Page<Student> studentPagination = studentService.findPaginated(page <= 1 ? 1 : page, size);
+
+        if (){
+
+        }else{
+
+            for (int i = start; i < ; i++) {
+
+            }
+        }
+
         students = studentPagination.getContent();
+
 
         log.info("page: {}", page);
         log.info("size: {}", studentPagination.getNumberOfElements());
-
-//        page = 1
-
-        //indexing the data
-        for (int i = page + 1; i < (page + 1) * studentPagination.getNumberOfElements() + 1; i++) {
-
-        }
-//        Map<Integer, Student> indexedStudent =
-
 
         model.addAttribute("allFaculties", faculties);
         model.addAttribute("pageNumbers", studentPagination.getTotalPages());
