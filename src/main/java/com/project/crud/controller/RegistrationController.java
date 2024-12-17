@@ -50,30 +50,35 @@ public class RegistrationController {
             before = page - 1;
         }
 
-        int start = before + 1;
+        int start = (before*size) + 1;
 
-        List<Student> students = new ArrayList<>();
-        Page<Student> studentPagination = studentService.findPaginated(page <= 1 ? 1 : page, size);
+        Map<Integer, Student> studentWithIndex = new HashMap<>();
+//        List<Student> students = new ArrayList<>();
+        Page<Student> studentPagination = studentService.findPaginated(page <= 1 ? 0 : page - 1, size);
 
-        if (){
-
-        }else{
-
-            for (int i = start; i < ; i++) {
-
-            }
+        if (page <= 1){
+            start = 1;
         }
 
-        students = studentPagination.getContent();
+        int index = 0;
+        while(index < studentPagination.getNumberOfElements()){
+
+            studentWithIndex.put(start, studentPagination.getContent().get(index));
+            start++;
+            index++;
+        }
 
 
-        log.info("page: {}", page);
+//        students = studentPagination.getContent();
+
+
+        log.info("total_pages: {}", studentPagination.getTotalPages());
         log.info("size: {}", studentPagination.getNumberOfElements());
-
+        log.info("number: {}", studentPagination.getNumber());
         model.addAttribute("allFaculties", faculties);
         model.addAttribute("pageNumbers", studentPagination.getTotalPages());
         model.addAttribute("size", studentPagination.getNumberOfElements());
-        model.addAttribute("students", students);
+        model.addAttribute("students", studentWithIndex);
 
         return "registration";
 
