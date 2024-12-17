@@ -85,7 +85,7 @@
                 <th></th>
             </tr>
             <tr th:each="student,rowStat : *{students}">
-                <td th:text="${rowStat.}"></td>
+                <td th:text="${rowStat.count} + ((${currPage} == 0 ? 0:${currPage})*3)"></td>
                 <td th:text="${student.getId()}"></td>
                 <td th:text="${student.getName()}"></td>
                 <td th:text="${student.getEmail()}"></td>
@@ -134,43 +134,9 @@
 <!--jquery via cdn-->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-<!--        function paginationNumberedTableRows(event, size, page){-->
-<!--            let start = (5 * (page - 1)) + 1-->
-<!--            for (let i = start; i <=-->
-<!--        }-->
         $(document).ready(function () {
             $('.modal-overlay').hide();
 
-            //function to display the numbered rows once the page launch
-            $('table tr:eq(0)').nextAll().each(function(index) {
-                $(this).find('td:eq(0)').replaceWith('<td>' + (index + 1) + '</td>');
-            })
-
-
-            //function to display the numbered rows when moving to another page
-<!--            $('table tr:eq(0)').click(function (event){-->
-
-<!--            });-->
-
-            //handling the <a> tag when It's clicked
-            $('div.pages a').click (function(event){
-                event.preventDefault();
-                let page = $(this).text();
-
-                $.ajax({
-                    url: "/register/?page="+page,
-                    type: 'GET',
-                    success: function(result){
-                        console.log('result: ', result);
-                    },
-                    error: function(result){
-                        console.log("errors: ", result)
-                    }
-
-                });
-
-
-            });
 
             $('.container input[type=button]#edit').click(function (event) {
                 $('.modal-overlay').show();
@@ -208,12 +174,12 @@
                 })
                 $.ajax({
                     url: "/student/"+ idDeleted,
-                    type: 'DELETE',
+                    method: "DELETE",
                     success: function(result){
-                        context.remove();
-                        reloadTableNumbering();
+                        console.log("success");
                     },
                     error: function(result){
+                        console.log("url: "+ url);
                         console.log("errors: ", result)
                     }
 

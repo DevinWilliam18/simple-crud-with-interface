@@ -45,40 +45,20 @@ public class RegistrationController {
 
         //indexing the data
         //before
-        int before = 0;
-        if (page > 1){
-            before = page - 1;
-        }
 
-        int start = (before*size) + 1;
-
-        Map<Integer, Student> studentWithIndex = new HashMap<>();
-//        List<Student> students = new ArrayList<>();
         Page<Student> studentPagination = studentService.findPaginated(page <= 1 ? 0 : page - 1, size);
 
-        if (page <= 1){
-            start = 1;
-        }
-
-        int index = 0;
-        while(index < studentPagination.getNumberOfElements()){
-
-            studentWithIndex.put(start, studentPagination.getContent().get(index));
-            start++;
-            index++;
-        }
-
-
-//        students = studentPagination.getContent();
 
 
         log.info("total_pages: {}", studentPagination.getTotalPages());
         log.info("size: {}", studentPagination.getNumberOfElements());
-        log.info("number: {}", studentPagination.getNumber());
+        log.info("number: {}", studentPagination.getTotalElements());
+        log.info("current page: {}", studentPagination.getNumber());
         model.addAttribute("allFaculties", faculties);
         model.addAttribute("pageNumbers", studentPagination.getTotalPages());
         model.addAttribute("size", studentPagination.getNumberOfElements());
-        model.addAttribute("students", studentWithIndex);
+        model.addAttribute("currPage", studentPagination.getNumber());
+        model.addAttribute("students", studentPagination.getContent());
 
         return "registration";
 
@@ -118,9 +98,12 @@ public class RegistrationController {
     }
 
     @DeleteMapping("/student/{id}")
-    public ResponseEntity<String> delete(@PathVariable String id) {
+    public String delete(@PathVariable String id) {
         boolean resp = studentService.deleteStudent(id);
-        return resp == true ? new ResponseEntity<>(id, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        System.out.println("delete: " + id);
+        return "redirect:/register";
+
     }
 
 
