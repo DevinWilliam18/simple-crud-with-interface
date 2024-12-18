@@ -93,10 +93,13 @@
                 <td>
                     <input type="button" id="edit" value="Edit">
                     <input type="button" id="delete" value="Delete">
+                    <a th:href="@{/student/{id}(id=${student.getId()})}">
+                        <button type="button">Delete</button>
+                    </a>
                 </td>
             </tr>
         </table>
-        <div class="pages" th:each="i: ${#numbers.sequence(1, pageNumbers)}">
+        <div class="pages" th:each="i: ${#numbers.sequence(1, pageNumbers)}" th:if="${pageNumbers} != 0">
             <a th:href="@{/register(page=${i})}" th:text="${i}" ></a>
         </div>
     </div>
@@ -164,27 +167,27 @@
 
             });
 
-            $('.container input[type=button]#delete').click(function(events) {
-                let idDeleted = $(this).closest("tr").find("td:eq(1)").text();
+<!--            $('.container input[type=button]#delete').click(function(events) {-->
+<!--                let idDeleted = $(this).closest("tr").find("td:eq(1)").text();-->
 
-                //get the curr row
-                let context = $(this).closest("tr");
-                let tableContext = context.each(function (index) {
-                    $(this).find()
-                })
-                $.ajax({
-                    url: "/student/"+ idDeleted,
-                    method: "DELETE",
-                    success: function(result){
-                        console.log("success");
-                    },
-                    error: function(result){
-                        console.log("url: "+ url);
-                        console.log("errors: ", result)
-                    }
+<!--                //get the curr row-->
+<!--                let context = $(this).closest("tr");-->
+<!--                let tableContext = context.each(function (index) {-->
+<!--                    $(this).find()-->
+<!--                })-->
+<!--                $.ajax({-->
+<!--                    url: "/student/"+ idDeleted,-->
+<!--                    method: "DELETE",-->
+<!--                    success: function(result){-->
+<!--                        location.reload(true);-->
+<!--                        console.log("success");-->
+<!--                    },-->
+<!--                    error: function(result){-->
+<!--                        console.log("errors: ", result)-->
+<!--                    }-->
 
-                });
-            });
+<!--                });-->
+<!--            });-->
 
 
 

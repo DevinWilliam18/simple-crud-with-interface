@@ -100,8 +100,7 @@ public class RegistrationController {
     @DeleteMapping("/student/{id}")
     public String delete(@PathVariable String id) {
         boolean resp = studentService.deleteStudent(id);
-
-        System.out.println("delete: " + id);
+        log.info("entering the delete method");
         return "redirect:/register";
 
     }
