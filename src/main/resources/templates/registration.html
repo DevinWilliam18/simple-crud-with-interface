@@ -92,7 +92,7 @@
                 <td th:text="${student.getFaculty().getName()}"></td>
                 <td>
                     <input type="button" id="edit" value="Edit">
-                    <input type="button" id="delete" value="Delete">
+<!--                    <input type="button" id="delete" value="Delete">-->
                     <a th:href="@{/student/{id}(id=${student.getId()})}">
                         <button type="button">Delete</button>
                     </a>

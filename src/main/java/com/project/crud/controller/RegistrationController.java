@@ -97,7 +97,7 @@ public class RegistrationController {
         return "redirect:/register";
     }
 
-    @DeleteMapping("/student/{id}")
+    @GetMapping("/student/{id}")
     public String delete(@PathVariable String id) {
         boolean resp = studentService.deleteStudent(id);
         log.info("entering the delete method");

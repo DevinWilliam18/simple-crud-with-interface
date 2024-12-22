@@ -27,15 +27,15 @@ public class StudentService {
 
     @PostConstruct
     private void initData() {
-        students.add(Student.builder().id(1).name("Vivin").email("vivin@yahoo.co.id")
+        students.add(Student.builder().id(11).name("Vivin").email("vivin@yahoo.co.id")
                 .faculty(facultyService.findFaculty("Faculty of Medicine")).build());
-        students.add(Student.builder().id(2).name("Nonong").email("nonong@gmail.com")
+        students.add(Student.builder().id(22).name("Nonong").email("nonong@gmail.com")
                 .faculty(facultyService.findFaculty("Faculty of Medicine")).build());
-        students.add(Student.builder().id(2).name("Rhenald Kalisa").email("rhenaldkalisa@gmail.com")
+        students.add(Student.builder().id(33).name("Rhenald Kalisa").email("rhenaldkalisa@gmail.com")
                 .faculty(facultyService.findFaculty("Faculty of Mathematics and Computer Science")).build());
-        students.add(Student.builder().id(2).name("Gby").email("gby99@gmail.com")
+        students.add(Student.builder().id(44).name("Gby").email("gby99@gmail.com")
                 .faculty(facultyService.findFaculty("Faculty of Psychology")).build());
-        students.add(Student.builder().id(2).name("Dono Warkop").email("dono@gmail.com")
+        students.add(Student.builder().id(55).name("Dono Warkop").email("dono@gmail.com")
                 .faculty(facultyService.findFaculty("Faculty of Psychology")).build());
     }
 
