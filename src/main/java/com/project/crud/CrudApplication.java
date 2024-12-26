@@ -13,14 +13,5 @@ public class CrudApplication {
 		SpringApplication.run(CrudApplication.class, args);
 	}
 
-	@Bean
-	public StudentService crudService(){
-		return new StudentService();
-    }
-
-	@Bean
-	public FacultyService facultyService(){
-		return new FacultyService();
-	}
 
 }

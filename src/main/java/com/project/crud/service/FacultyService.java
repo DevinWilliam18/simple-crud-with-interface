@@ -1,6 +1,7 @@
 package com.project.crud.service;
 
 import com.project.crud.model.Faculty;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Random;
 
 import javax.annotation.PostConstruct;
 
+@Service
 public class FacultyService {
 
     List<Faculty> faculties = new ArrayList<>();
