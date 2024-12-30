@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Builder
+    @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -22,6 +22,10 @@ public class Student {
 
     @Column(unique = true, nullable = false)
     private String email;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
 }
