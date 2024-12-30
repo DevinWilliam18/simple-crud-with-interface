@@ -1,0 +1,10 @@
+package com.project.crud.repository;
+
+import com.project.crud.model.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface StudentRepo extends JpaRepository<Student, Integer> {
+
+}
