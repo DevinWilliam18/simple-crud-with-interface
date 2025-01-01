@@ -3,6 +3,7 @@ package com.project.crud.service;
 import com.project.crud.model.Faculty;
 import com.project.crud.model.Student;
 
+import com.project.crud.repository.StudentRepo;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
@@ -22,31 +23,32 @@ import java.util.List;
 @Service
 public class StudentService {
 
-    List<Student> students = new ArrayList<>();
+    @Autowired
+    private StudentRepo studentRepo;
 
     @Autowired
     private FacultyService facultyService;
 
     @PostConstruct
     private void initData() {
-        students.add(Student.builder().id(11).name("Vivin").email("vivin@yahoo.co.id")
+        studentRepo.save(Student.builder().id(11).name("Vivin").email("vivin@yahoo.co.id")
                 .faculty(facultyService.findFaculty("Faculty of Medicine")).build());
-        students.add(Student.builder().id(22).name("Nonong").email("nonong@gmail.com")
+        studentRepo.save(Student.builder().id(22).name("Nonong").email("nonong@gmail.com")
                 .faculty(facultyService.findFaculty("Faculty of Medicine")).build());
-        students.add(Student.builder().id(33).name("Rhenald Kalisa").email("rhenaldkalisa@gmail.com")
+        studentRepo.save(Student.builder().id(33).name("Rhenald Kalisa").email("rhenaldkalisa@gmail.com")
                 .faculty(facultyService.findFaculty("Faculty of Mathematics and Computer Science")).build());
-        students.add(Student.builder().id(44).name("Gby").email("gby99@gmail.com")
+        studentRepo.save(Student.builder().id(44).name("Gby").email("gby99@gmail.com")
                 .faculty(facultyService.findFaculty("Faculty of Psychology")).build());
-        students.add(Student.builder().id(55).name("Dono Warkop").email("dono@gmail.com")
+        studentRepo.save(Student.builder().id(55).name("Dono Warkop").email("dono@gmail.com")
                 .faculty(facultyService.findFaculty("Faculty of Psychology")).build());
     }
 
     public void add(Student student) {
-        students.add(student);
+        studentRepo.save(student);
     }
 
     public List<Student> findAll() {
-        return students;
+        return studentRepo.findAll();
     }
 
     public Page<Student> findPaginated(int page, int size){

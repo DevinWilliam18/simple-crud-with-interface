@@ -1,6 +1,8 @@
 package com.project.crud.service;
 
 import com.project.crud.model.Faculty;
+import com.project.crud.repository.FacultyRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,27 +14,32 @@ import javax.annotation.PostConstruct;
 @Service
 public class FacultyService {
 
-    List<Faculty> faculties = new ArrayList<>();
+//    List<Faculty> faculties = new ArrayList<>();
+
+    @Autowired
+    private FacultyRepo facultyRepo;
+
 
     @PostConstruct
     public void initData(){
-        faculties.add(Faculty.builder().id(new Random().nextInt(1000)).name("Faculty of Medicine").build());
-        faculties.add(Faculty.builder().id(new Random().nextInt(1000)).name("Faculty of Engineering").build());
-        faculties.add(Faculty.builder().id(new Random().nextInt(1000)).name("Faculty of Mathematics and Computer Science").build());
-        faculties.add(Faculty.builder().id(new Random().nextInt(1000)).name("Faculty of Psychology").build());
+        facultyRepo.save(Faculty.builder().id(new Random().nextInt(1000)).name("Faculty of Medicine").build());
+        facultyRepo.save(Faculty.builder().id(new Random().nextInt(1000)).name("Faculty of Engineering").build());
+        facultyRepo.save(Faculty.builder().id(new Random().nextInt(1000)).name("Faculty of Mathematics and Computer Science").build());
+        facultyRepo.save(Faculty.builder().id(new Random().nextInt(1000)).name("Faculty of Psychology").build());
+
     }
 
     public void addFaculty(Faculty faculty){
-        faculties.add(faculty);
+        facultyRepo.save(faculty);
     }
 
     public List<Faculty> getFaculties(){
-        return faculties;
+        return facultyRepo.findAll();
     }
 
     public Faculty findFaculty(String name){
         Faculty getFaculty = null;
-        for (Faculty faculty: faculties){
+        for (Faculty faculty: facultyRepo.findAll()){
             if (faculty.getName().equals(name)){
                 getFaculty = faculty;
                 break;
