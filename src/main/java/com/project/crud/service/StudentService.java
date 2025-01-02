@@ -65,59 +65,58 @@ public class StudentService {
     }
 
     public Student findStudent(String id) {
-        Student student = null;
+        Student student = studentRepo.findById(Integer.parseInt(id)).get();
 
-        for (Student target : findAll()) {
-            if (target.getId() == Integer.parseInt(id)) {
-                student = target;
-                break;
-            }
-        }
+//        for (Student target : findAll()) {
+//            if (target.getId() == Integer.parseInt(id)) {
+//                student = target;
+//                break;
+//            }
+//        }
+
         return student;
     }
 
-    public int findIndex(String id) {
-        int index = -1;
-        Student student = findStudent(id);
-
-        List<Student> getAll = findAll();
-
-        for (int i = 0; i < findAll().size(); i++) {
-            if (getAll.get(i).getId() == Integer.parseInt(id)) {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
+//    public int findIndex(String id) {
+//        int index = -1;
+//        Student student = findStudent(id);
+//
+//        List<Student> getAll = findAll();
+//
+//        for (int i = 0; i < findAll().size(); i++) {
+//            if (getAll.get(i).getId() == Integer.parseInt(id)) {
+//                index = i;
+//                break;
+//            }
+//        }
+//        return index;
+//    }
 
     public boolean editStudent(String id, String email, String name, Faculty faculty) {
         boolean resp = false;
-        Student studentReference = findStudent(id);
-        Student student = new Student();
+        Student studentRef = findStudent(id);
 
-        if (studentReference != null) {
-            int index = findIndex(id);
-            student.setId(Integer.parseInt(id));
-            student.setName(name);
-            student.setEmail(email);
-            student.setFaculty(faculty);
+        if (studentRef != null) {
+            studentRef.setName(name);
+            studentRef.setEmail(email);
+            studentRef.setFaculty(faculty);
 
-            findAll().set(index, student);
+            studentRepo.save(studentRef);
             resp = true;
         }
-
         return resp;
     }
 
     public boolean deleteStudent(String id){
-        int index = findIndex(id);
-        if (index == -1){
-            return false;
-        }else{
-            findAll().remove(index);
-            return true;
+        Student student = findStudent(id);
+        boolean resp = false;
+
+        if (student != null){
+            studentRepo.deleteById(Integer.parseInt(id));
+            resp = true;
         }
+
+        return resp;
     }
 
 }
