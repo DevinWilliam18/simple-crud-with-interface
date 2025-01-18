@@ -96,7 +96,7 @@ public class RegistrationController {
 
         return "redirect:/register";
     }
-
+    
     @GetMapping("/student/{id}")
     public String delete(@PathVariable String id) {
         boolean resp = studentService.deleteStudent(id);

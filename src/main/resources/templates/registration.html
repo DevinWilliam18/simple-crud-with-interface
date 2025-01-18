@@ -5,6 +5,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Registration</title>
     <style>
+
+        .container{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
@@ -50,9 +59,8 @@
     </style>
 </head>
 <body>
-
-    <!-- form registration -->
     <div class="container">
+        <!-- form registration -->
         <div class="row justify-content-center">
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
                 <div class="card border border-light-subtle rounded-3 shadow-sm">
@@ -69,37 +77,37 @@
                                     <div class="form-floating mb-3">
                                         <label for="firstName" class="form-label">First Name</label>
                                         <input type="text" class="form-control" name="firstName" id="firstName"
-                                            placeholder="First Name" required>
+                                               placeholder="First Name" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating mb-3">
                                         <label for="lastName" class="form-label">Last Name</label>
                                         <input type="text" class="form-control" name="lastName" id="lastName"
-                                            placeholder="Last Name" required>
+                                               placeholder="Last Name" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating mb-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" class="form-control" name="email" id="email"
-                                            placeholder="name@example.com" required>
+                                               placeholder="name@example.com" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating mb-3">
                                         <label for="password" class="form-label">Password</label>
                                         <input type="password" class="form-control" name="password" id="password" value=""
-                                            placeholder="Password" required>
+                                               placeholder="Password" required>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value="" name="iAgree" id="iAgree"
-                                            required>
+                                               required>
                                         <label class="form-check-label text-secondary" for="iAgree">
                                             I agree to the <a href="#!" class="link-primary text-decoration-none">terms and
-                                                conditions</a>
+                                            conditions</a>
                                         </label>
                                     </div>
                                 </div>
@@ -110,7 +118,7 @@
                                 </div>
                                 <div class="col-12">
                                     <p class="m-0 text-secondary text-center">Already have an account? <a href="#!"
-                                            class="link-primary text-decoration-none">Sign in</a></p>
+                                                                                                          class="link-primary text-decoration-none">Sign in</a></p>
                                 </div>
                             </div>
                         </form>
@@ -118,64 +126,62 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <!-- <h2>Register</h2>
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="faculty">Faculty</label>
+                    <select name="faculty" id="faculty">
+                        <option th:each="faculty: ${allFaculties}"
+                                th:value="${faculty}"
+                                th:text="${faculty}">Faculty</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Register">
+                </div>
+            </form> -->
+
+            <!-- table view -->
+            <h1>Student List</h1>
+
+            <table>
+                <tr>
+                    <th>No</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Faculty</th>
+                    <th></th>
+                </tr>
+                <tr th:each="student,rowStat : *{students}">
+                    <td th:text="${rowStat.count} + ((${currPage} == 0 ? 0:${currPage})*3)"></td>
+                    <td th:text="${student.getId()}"></td>
+                    <td th:text="${student.getName()}"></td>
+                    <td th:text="${student.getEmail()}"></td>
+                    <td th:text="${student.getFaculty().getName()}"></td>
+                    <td>
+                        <input type="button" id="edit" value="Edit">
+                        <!--                    <input type="button" id="delete" value="Delete">-->
+                        <a th:href="@{/student/{id}(id=${student.getId()})}">
+                            <button type="button">Delete</button>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <span class="pages" th:each="i: ${#numbers.sequence(1, pageNumbers)}" th:if="${pageNumbers} != 0">
+                <a th:href="@{/register(page=${i})}" th:text="${i}" ></a>
+            </span>
+        </div>
     </div>
-
-    <div class="container">
-        <!-- <h2>Register</h2>
-        <form action="/register" method="POST">
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="faculty">Faculty</label>
-                <select name="faculty" id="faculty">
-                    <option th:each="faculty: ${allFaculties}"
-                            th:value="${faculty}"
-                            th:text="${faculty}">Faculty</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Register">
-            </div>
-        </form> -->
-
-        <!-- table view -->
-        <h1>Student List</h1>
-
-        <table>
-            <tr>
-                <th>No</th>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Faculty</th>
-                <th></th>
-            </tr>
-            <tr th:each="student,rowStat : *{students}">
-                <td th:text="${rowStat.count} + ((${currPage} == 0 ? 0:${currPage})*3)"></td>
-                <td th:text="${student.getId()}"></td>
-                <td th:text="${student.getName()}"></td>
-                <td th:text="${student.getEmail()}"></td>
-                <td th:text="${student.getFaculty().getName()}"></td>
-                <td>
-                    <input type="button" id="edit" value="Edit">
-<!--                    <input type="button" id="delete" value="Delete">-->
-                    <a th:href="@{/student/{id}(id=${student.getId()})}">
-                        <button type="button">Delete</button>
-                    </a>
-                </td>
-            </tr>
-        </table>
-        <span class="pages" th:each="i: ${#numbers.sequence(1, pageNumbers)}" th:if="${pageNumbers} != 0">
-            <a th:href="@{/register(page=${i})}" th:text="${i}" ></a>
-        </span>
-    </div>
-
     <!-- modal    -->
     <div class="modal-overlay" id="modal-overlay">
         <div id="modal" class="modal">
