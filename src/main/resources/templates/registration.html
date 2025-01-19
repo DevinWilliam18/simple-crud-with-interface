@@ -9,10 +9,21 @@
             height: 100vh;
         }
 
+        label {
+            font-size: .8rem;
+        }
+
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
+            font-size: .775rem;
+        }
+
+        .form-control{
+            font-size: .8rem;
+            padding: .275rem .7rem;
+            line-height: 1.5rem;
         }
 
         td, th {
@@ -58,55 +69,37 @@
     <div class="container my-auto d-flex justify-content-center align-items-center">
         <div class="col-lg-6 col-md-8 col-sm-10">
             <div class="card border border-light-subtle rounded-3 shadow-sm">
-                <div class="card-body p-4">
-                    <div class="text-center mb-3">
-                        <a href="#!">
-                            <img src="./assets/img/bsb-logo.svg" alt="BootstrapBrain Logo" width="175" height="57">
-                        </a>
-                    </div>
-                    <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Enter your details to register</h2>
-                    <form action="#!">
-                        <div class="row gy-3">
+                <div class="card-body p-1" style="height: 100%;">
+                    <h5 class="fs-6 fw-normal text-center text-secondary my-3">Register</h5>
+                    <form action="/register" method="POST">
+                        <div class="row" style="margin: 0;">
                             <!-- Form fields -->
                             <div class="col-12">
-                                <div class="form-floating mb-3">
-                                    <label for="firstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" required>
+                                <div class="form-floating mb-1">
+                                    <label for="name" class="form-label">Fullname</label>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Fullname" required>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="form-floating mb-3">
-                                    <label for="lastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name" required>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating mb-3">
+                                <div class="form-floating mb-1">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="xxx@gmail.com" required>
                                 </div>
                             </div>
                             <div class="col-12">
-                                <div class="form-floating mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="iAgree" id="iAgree" required>
-                                    <label class="form-check-label text-secondary" for="iAgree">
-                                        I agree to the <a href="#!" class="link-primary text-decoration-none">terms and conditions</a>
-                                    </label>
+                                <div class="form-floating mb-1">
+                                    <label for="faculty">Faculty</label>
+                                    <select name="faculty" id="faculty" class="form-control">
+                                        <option th:each="faculty: ${allFaculties}"
+                                                th:value="${faculty}"
+                                                th:text="${faculty}">Faculty</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="d-grid my-3">
-                                    <button class="btn btn-primary btn-lg" type="submit">Sign up</button>
+                                    <button class="btn btn-primary btn-sm" type="submit">Register</button>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <p class="m-0 text-secondary text-center">Already have an account? <a href="#!" class="link-primary text-decoration-none">Sign in</a></p>
                             </div>
                         </div>
                     </form>
@@ -115,32 +108,8 @@
         </div>
     </div>
     <div class="container my-auto">
-        <!-- <h2>Register</h2>
-        <form action="/register" method="POST">
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="faculty">Faculty</label>
-                <select name="faculty" id="faculty">
-                    <option th:each="faculty: ${allFaculties}"
-                            th:value="${faculty}"
-                            th:text="${faculty}">Faculty</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Register">
-            </div>
-        </form> -->
-
-<!--         table view -->
-        <h1>Student List</h1>
-
+        <!-- table view -->
+        <h4>Student List</h4>
         <table>
             <tr>
                 <th>No</th>
@@ -231,28 +200,27 @@
                 });
 
             });
+            <!--            $('.container input[type=button]#delete').click(function(events) {-->
+<!--                let idDeleted = $(this).closest("tr").find("td:eq(1)").text();-->
 
-// <!--            $('.container input[type=button]#delete').click(function(events) {-->
-// <!--                let idDeleted = $(this).closest("tr").find("td:eq(1)").text();-->
+<!--                //get the curr row-->
+<!--                let context = $(this).closest("tr");-->
+<!--                let tableContext = context.each(function (index) {-->
+<!--                    $(this).find()-->
+<!--                })-->
+<!--                $.ajax({-->
+<!--                    url: "/student/"+ idDeleted,-->
+<!--                    method: "DELETE",-->
+<!--                    success: function(result){-->
+<!--                        location.reload(true);-->
+<!--                        console.log("success");-->
+<!--                    },-->
+<!--                    error: function(result){-->
+<!--                        console.log("errors: ", result)-->
+<!--                    }-->
 
-// <!--                //get the curr row-->
-// <!--                let context = $(this).closest("tr");-->
-// <!--                let tableContext = context.each(function (index) {-->
-// <!--                    $(this).find()-->
-// <!--                })-->
-// <!--                $.ajax({-->
-// <!--                    url: "/student/"+ idDeleted,-->
-// <!--                    method: "DELETE",-->
-// <!--                    success: function(result){-->
-// <!--                        location.reload(true);-->
-// <!--                        console.log("success");-->
-// <!--                    },-->
-// <!--                    error: function(result){-->
-// <!--                        console.log("errors: ", result)-->
-// <!--                    }-->
-
-// <!--                });-->
-// <!--            });-->
+<!--                });-->
+<!--            });-->
 
 
 
