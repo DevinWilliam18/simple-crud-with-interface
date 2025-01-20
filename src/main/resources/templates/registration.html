@@ -233,13 +233,13 @@
                 $('.modal-overlay input[id="editEmail"]').prop("value", emailUpdated);
 
                 $('#updateButton').click(function (event) {
-                    event.preventDefault();
+
                     console.log("updating...");
                     let newAction = "/register/" + idUpdated.toString();
 
-                    $(this).attr('action', newAction);
+                    $('#formUpdated').attr('action', newAction);
 
-                    $(this).off('submit').submit();
+                    $('#formUpdated').off('submit').submit();
 
                 });
 
